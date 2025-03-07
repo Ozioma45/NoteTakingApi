@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import noteRoutes from "./routes/notes.routes";
+import { errorHandler } from "./middleware/errorHandler";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
 app.use("/api/notes", noteRoutes);
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Note-Taking API");

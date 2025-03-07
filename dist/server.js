@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const notes_routes_1 = __importDefault(require("./routes/notes.routes"));
+const errorHandler_1 = require("./middleware/errorHandler");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ mongoose_1.default
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.error("MongoDB Connection Error:", err));
 app.use("/api/notes", notes_routes_1.default);
+app.use(errorHandler_1.errorHandler);
 app.get("/", (req, res) => {
     res.send("Welcome to the Note-Taking API");
 });
