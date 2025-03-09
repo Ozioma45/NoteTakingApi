@@ -12,40 +12,6 @@ A simple REST API for a note-taking application built using Node.js, Express, Ty
 
 ---
 
-## 🛠️ Setup & Installation
-
-### 1️⃣ Clone the Repository
-
-```sh
-git clone https://github.com/Ozioma45/NoteTakingApi.git
-cd NoteTakingApi
-```
-
-### 2️⃣ Install Dependencies
-
-```sh
-npm install
-```
-
-### 3️⃣ Create a `.env` File
-
-Create a `.env` file in the root directory and add:
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-```
-
-### 4️⃣ Start the Development Server
-
-```sh
-npm run dev
-```
-
-The API will be running on `http://localhost:5000`
-
----
-
 ## 📌 API Endpoints
 
 ### 📜 Notes Routes
@@ -143,12 +109,6 @@ DELETE /api/notes/65b8f6e4a1b2c3d4e5f6g7h8
 ## 🧪 Testing
 
 Use **Postman** or **cURL** to test the API.
-
-To run API tests:
-
-```sh
-npm run test
-```
 
 ---
 
