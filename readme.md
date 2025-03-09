@@ -93,6 +93,11 @@ DELETE /api/notes/65b8f6e4a1b2c3d4e5f6g7h8
 
 ```
 📂 note-taking-api
+│── 📂 dist                 # Compiled JavaScript output
+│   ├── 📂 models         # Mongoose schemas
+│   ├── 📂 routes         # Express routes
+│   ├── 📂 middleware     # Error handling
+│   ├── server.js        # Main entry point (compiled)
 │── 📂 src
 │   ├── 📂 models         # Mongoose schemas
 │   ├── 📂 routes         # Express routes
