@@ -15,6 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const note_model_1 = __importDefault(require("../models/note.model"));
 const router = (0, express_1.Router)();
+// Get notes by category
+router.get("/categories/:categoryId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { categoryId } = req.params;
+    const notes = yield note_model_1.default.find({ categoryId });
+    res.json(notes);
+}));
 // Get all notes
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const notes = yield note_model_1.default.find();
@@ -42,5 +48,17 @@ router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (!note)
         return res.status(404).json({ message: "Note not found" });
     res.json({ message: "Note deleted successfully" });
+}));
+// Update a note
+router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title, content, categoryId } = req.body;
+    const note = yield note_model_1.default.findById(req.params.id);
+    if (!note)
+        return res.status(404).json({ message: "Note not found" });
+    note.title = title || note.title;
+    note.content = content || note.content;
+    note.categoryId = categoryId || note.categoryId;
+    yield note.save();
+    res.json(note);
 }));
 exports.default = router;

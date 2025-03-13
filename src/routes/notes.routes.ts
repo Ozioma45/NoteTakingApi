@@ -3,6 +3,13 @@ import Note from "../models/note.model";
 
 const router = Router();
 
+// Get notes by category
+router.get("/categories/:categoryId", async (req, res) => {
+  const { categoryId } = req.params;
+  const notes = await Note.find({ categoryId });
+  res.json(notes);
+});
+
 // Get all notes
 router.get("/", async (req, res) => {
   const notes = await Note.find();
@@ -32,6 +39,21 @@ router.delete("/:id", async (req, res) => {
   const note = await Note.findByIdAndDelete(req.params.id);
   if (!note) return res.status(404).json({ message: "Note not found" });
   res.json({ message: "Note deleted successfully" });
+});
+
+// Update a note
+router.put("/:id", async (req, res) => {
+  const { title, content, categoryId } = req.body;
+
+  const note = await Note.findById(req.params.id);
+  if (!note) return res.status(404).json({ message: "Note not found" });
+
+  note.title = title || note.title;
+  note.content = content || note.content;
+  note.categoryId = categoryId || note.categoryId;
+
+  await note.save();
+  res.json(note);
 });
 
 export default router;
