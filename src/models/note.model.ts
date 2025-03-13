@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 export interface INote {
   title: string;
   content: string;
+  categoryId: mongoose.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -13,6 +14,11 @@ const noteSchema = new mongoose.Schema<INote>(
   {
     title: { type: String, required: true },
     content: { type: String, required: true },
+    categoryId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
   },
   { timestamps: true }
 );
