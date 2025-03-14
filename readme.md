@@ -2,13 +2,21 @@
 
 A simple REST API for a note-taking application built using Node.js, Express, TypeScript, and MongoDB.
 
-## 🚀 Features
+## 🚀 Live API
 
-- ✅ Create, Read, and Delete notes
-- ✅ TypeScript for type safety
-- ✅ MongoDB with Mongoose for data storage
-- ✅ Error handling with custom error classes
-- ✅ Environment variables using dotenv
+**Base URL:** [https://notetakingapi-ruui.onrender.com](https://notetakingapi-ruui.onrender.com)
+
+---
+
+## 🛠️ Features
+
+- **Create, Read, Update, and Delete (CRUD) notes**
+- **Categories for notes**
+- **Type Safety with TypeScript**
+- **MongoDB Persistence using Mongoose**
+- **Custom Middleware for Validation**
+- **Logging Middleware to Track API Requests**
+- **Error Handling with Custom Typed Classes**
 
 ---
 
@@ -271,7 +279,13 @@ DELETE /api/notes/67d3bf17c6a0a16680b5855f
 
 ## 🧪 Testing
 
-## Use **Postman** or **cURL** to test the API.
+## 🧪 Testing with Postman
+
+1. Open **Postman**.
+2. Set the **Base URL** to: `https://notetakingapi-ruui.onrender.com`
+3. Use the above endpoints to send requests and test the API.
+
+---
 
 ## 🛠️ Built With
 
