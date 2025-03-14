@@ -17,48 +17,80 @@ const note_model_1 = __importDefault(require("../models/note.model"));
 const router = (0, express_1.Router)();
 // Get notes by category
 router.get("/categories/:categoryId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { categoryId } = req.params;
-    const notes = yield note_model_1.default.find({ categoryId });
-    res.json(notes);
+    try {
+        const { categoryId } = req.params;
+        const notes = yield note_model_1.default.find({ categoryId });
+        res.json(notes);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 // Get all notes
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const notes = yield note_model_1.default.find();
-    res.json(notes);
+router.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const notes = yield note_model_1.default.find();
+        res.json(notes);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 // Get a specific note
 router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const note = yield note_model_1.default.findById(req.params.id);
-    if (!note)
-        return res.status(404).json({ message: "Note not found" });
-    res.json(note);
+    try {
+        const note = yield note_model_1.default.findById(req.params.id);
+        if (!note)
+            return res.status(404).json({ message: "Note not found" });
+        res.json(note);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 // Create a new note
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, content } = req.body;
-    if (!title || !content)
-        return res.status(400).json({ message: "Title and content are required" });
-    const note = new note_model_1.default({ title, content });
-    yield note.save();
-    res.status(201).json(note);
+    try {
+        const { title, content, categoryId } = req.body;
+        if (!title || !content || !categoryId)
+            return res
+                .status(400)
+                .json({ message: "Title, content, and categoryId are required" });
+        const note = new note_model_1.default({ title, content, categoryId });
+        yield note.save();
+        res.status(201).json(note);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 // Delete a note
 router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const note = yield note_model_1.default.findByIdAndDelete(req.params.id);
-    if (!note)
-        return res.status(404).json({ message: "Note not found" });
-    res.json({ message: "Note deleted successfully" });
+    try {
+        const note = yield note_model_1.default.findByIdAndDelete(req.params.id);
+        if (!note)
+            return res.status(404).json({ message: "Note not found" });
+        res.json({ message: "Note deleted successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 // Update a note
 router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, content, categoryId } = req.body;
-    const note = yield note_model_1.default.findById(req.params.id);
-    if (!note)
-        return res.status(404).json({ message: "Note not found" });
-    note.title = title || note.title;
-    note.content = content || note.content;
-    note.categoryId = categoryId || note.categoryId;
-    yield note.save();
-    res.json(note);
+    try {
+        const { title, content, categoryId } = req.body;
+        const note = yield note_model_1.default.findById(req.params.id);
+        if (!note)
+            return res.status(404).json({ message: "Note not found" });
+        note.title = title || note.title;
+        note.content = content || note.content;
+        note.categoryId = categoryId || note.categoryId;
+        yield note.save();
+        res.json(note);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 }));
 exports.default = router;
